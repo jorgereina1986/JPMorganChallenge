@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginEnd="@dimen/margin10dp"
+    android:layout_marginStart="@dimen/margin10dp"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/search_input"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginEnd="@dimen/padding10dp"
-        android:layout_marginStart="@dimen/padding10dp"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:hint="@string/search_edit_text_hint"
+        android:textAlignment="center"/>
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/search_edit_text_hint"
-            android:textAlignment="center"/>
+    <Button
+        android:id="@+id/search_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/search_button_text"/>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/search_button_text"/>
-
-    </LinearLayout>
-</layout>
+</LinearLayout>
