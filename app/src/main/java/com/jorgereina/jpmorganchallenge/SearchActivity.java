@@ -5,17 +5,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
-public class SearchActivity extends AppCompatActivity implements OnTrackSelected{
+public class SearchActivity extends AppCompatActivity{
 
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
     private SearchFragment searchFragment;
-
-    @Override
-    public void sendQueryParam(String queryParam) {
-        SearchResultsFragment searchResultsFragment = new SearchResultsFragment();
-        searchResultsFragment.setQueryParam(queryParam);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

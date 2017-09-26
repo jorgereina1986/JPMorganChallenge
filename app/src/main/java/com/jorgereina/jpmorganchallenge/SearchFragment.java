@@ -1,11 +1,10 @@
 package com.jorgereina.jpmorganchallenge;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,17 +12,27 @@ import android.widget.Button;
 import android.widget.EditText;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.jorgereina.jpmorganchallenge.Models.Response;
 import com.jorgereina.jpmorganchallenge.Models.Track;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SearchFragment extends Fragment {
 
+    private static final String BASE_URL = "http://itunes.apple.com/";
+
     @BindView(R.id.search_button) Button searchButton;
     @BindView(R.id.search_input) EditText searchInput;
+    @BindView(R.id.results_rv) RecyclerView resultsRv;
+
+    private RecyclerView.LayoutManager layoutManager;
+    private ItunesAdapter adapter;
     private List<Track> trackList;
-    OnTrackSelected onTrackSelected;
 
     @Nullable
     @Override
@@ -36,13 +45,6 @@ public class SearchFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        onTrackSelected = (OnTrackSelected) getActivity();
-    }
-
-    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -50,17 +52,38 @@ public class SearchFragment extends Fragment {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SearchResultsFragment searchResultFragment = new SearchResultsFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, searchResultFragment);
-                fragmentTransaction.commit();
 
                 String input = searchInput.getText().toString();
 
-                onTrackSelected.sendQueryParam(input);
+                trackList = new ArrayList<>();
+                Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+                ItunesApi itunesApi = retrofit.create(ItunesApi.class);
+                itunesApi.showResults(input).enqueue(new Callback<Response>() {
+                    @Override
+                    public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                        layoutManager =  new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+                        resultsRv.setLayoutManager(layoutManager);
+                        resultsRv.setAdapter(adapter);
+                        adapter = new ItunesAdapter(trackList, getContext());
+                        trackList.addAll(response.body().trackList);
+                        adapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onFailure(Call<Response> call, Throwable t) {
+
+                    }
+                });
 
             }
         });
+
+
     }
+
+
 }
