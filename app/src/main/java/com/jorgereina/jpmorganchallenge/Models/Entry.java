@@ -3,6 +3,8 @@ package com.jorgereina.jpmorganchallenge.Models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Entry {
 
     @SerializedName("main")
@@ -11,7 +13,7 @@ public class Entry {
 
     @SerializedName("weather")
     @Expose
-    public Weather weather;
+    public List<Weather> weather;
 
     public Wind wind;
 

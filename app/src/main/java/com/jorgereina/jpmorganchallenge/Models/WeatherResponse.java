@@ -10,9 +10,4 @@ public class WeatherResponse {
     @SerializedName("list")
     @Expose
     public List<Entry> entryList;
-
-    @SerializedName("resultCount")
-    @Expose
-    public int resultCount;
-
 }
