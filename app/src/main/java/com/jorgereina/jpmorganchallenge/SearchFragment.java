@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.jorgereina.jpmorganchallenge.Models.Response;
-import com.jorgereina.jpmorganchallenge.Models.Track;
+import com.jorgereina.jpmorganchallenge.Models.Entry;
+import com.jorgereina.jpmorganchallenge.Models.WeatherResponse;
 import com.seatgeek.placesautocomplete.PlacesAutocompleteTextView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,8 +31,8 @@ public class SearchFragment extends Fragment {
     @BindView(R.id.results_rv) RecyclerView resultsRv;
 
     private RecyclerView.LayoutManager layoutManager;
-    private ItunesAdapter adapter;
-    private List<Track> trackList;
+    private WeatherAdapter adapter;
+    private List<Entry> entryList;
 
     @Nullable
     @Override
@@ -48,33 +48,33 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        trackList = new ArrayList<>();
+        entryList = new ArrayList<>();
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 String input = searchInput.getText().toString();
 
-                trackList = new ArrayList<>();
+                entryList = new ArrayList<>();
                 Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
-                ItunesApi itunesApi = retrofit.create(ItunesApi.class);
-                itunesApi.showResults(input).enqueue(new Callback<Response>() {
+                WeatherApi weatherApi = retrofit.create(WeatherApi.class);
+                weatherApi.showResults(input).enqueue(new Callback<WeatherResponse>() {
                     @Override
-                    public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                    public void onResponse(Call<WeatherResponse> call, retrofit2.Response<WeatherResponse> response) {
                         layoutManager =  new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
                         resultsRv.setLayoutManager(layoutManager);
                         resultsRv.setAdapter(adapter);
-                        adapter = new ItunesAdapter(trackList, getContext());
-                        trackList.addAll(response.body().trackList);
+                        adapter = new WeatherAdapter(entryList, getContext());
+                        entryList.addAll(response.body().entryList);
                         adapter.notifyDataSetChanged();
                     }
 
                     @Override
-                    public void onFailure(Call<Response> call, Throwable t) {
+                    public void onFailure(Call<WeatherResponse> call, Throwable t) {
 
                     }
                 });

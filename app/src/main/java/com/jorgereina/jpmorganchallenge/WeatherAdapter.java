@@ -9,18 +9,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.jorgereina.jpmorganchallenge.Models.Track;
+import com.jorgereina.jpmorganchallenge.Models.Entry;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class ItunesAdapter extends RecyclerView.Adapter<ItunesAdapter.ViewHolder> {
+public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHolder> {
 
-    private List<Track> trackList;
+    private List<Entry> entryList;
     private Context context;
 
-    public ItunesAdapter(List<Track> trackList, Context context) {
-        this.trackList = trackList;
+    public WeatherAdapter(List<Entry> entryList, Context context) {
+        this.entryList = entryList;
         this.context = context;
     }
 
@@ -34,15 +34,15 @@ public class ItunesAdapter extends RecyclerView.Adapter<ItunesAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.trackTv.setText(trackList.get(position).trackName);
-        holder.artistTv.setText(trackList.get(position).artistName);
-        holder.albumTv.setText(trackList.get(position).albumName);
-        Picasso.with(context).load(trackList.get(position).getImageUrl()).into(holder.imageView);
+        holder.trackTv.setText(entryList.get(position).trackName);
+        holder.artistTv.setText(entryList.get(position).artistName);
+        holder.albumTv.setText(entryList.get(position).albumName);
+        Picasso.with(context).load(entryList.get(position).getImageUrl()).into(holder.imageView);
     }
 
     @Override
     public int getItemCount() {
-        return trackList.size();
+        return entryList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

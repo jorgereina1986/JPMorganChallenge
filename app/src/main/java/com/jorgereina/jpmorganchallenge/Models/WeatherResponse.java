@@ -5,11 +5,11 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Response {
+public class WeatherResponse {
 
-    @SerializedName("results")
+    @SerializedName("list")
     @Expose
-    public List<Track> trackList;
+    public List<Entry> entryList;
 
     @SerializedName("resultCount")
     @Expose
