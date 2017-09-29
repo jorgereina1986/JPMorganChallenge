@@ -9,11 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.jorgereina.jpmorganchallenge.Models.Response;
 import com.jorgereina.jpmorganchallenge.Models.Track;
+import com.seatgeek.placesautocomplete.PlacesAutocompleteTextView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -27,7 +27,7 @@ public class SearchFragment extends Fragment {
     private static final String BASE_URL = "http://itunes.apple.com/";
 
     @BindView(R.id.search_button) Button searchButton;
-    @BindView(R.id.search_input) EditText searchInput;
+    @BindView(R.id.search_input) PlacesAutocompleteTextView searchInput;
     @BindView(R.id.results_rv) RecyclerView resultsRv;
 
     private RecyclerView.LayoutManager layoutManager;
