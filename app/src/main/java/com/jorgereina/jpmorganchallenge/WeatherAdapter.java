@@ -5,14 +5,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import com.jorgereina.jpmorganchallenge.Models.Entry;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHolder> {
 
@@ -34,10 +34,10 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.trackTv.setText(entryList.get(position).trackName);
-        holder.artistTv.setText(entryList.get(position).artistName);
-        holder.albumTv.setText(entryList.get(position).albumName);
-        Picasso.with(context).load(entryList.get(position).getImageUrl()).into(holder.imageView);
+        holder.temp.setText(entryList.get(position).main.temperature);
+//        holder.artistTv.setText(entryList.get(position).artistName);
+//        holder.albumTv.setText(entryList.get(position).albumName);
+//        Picasso.with(context).load(entryList.get(position).getImageUrl()).into(holder.imageView);
     }
 
     @Override
@@ -47,10 +47,10 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.album_iv) ImageView imageView;
-        @BindView(R.id.track_tv) TextView trackTv;
-        @BindView(R.id.artist_tv) TextView artistTv;
-        @BindView(R.id.album_tv) TextView albumTv;
+//        @BindView(R.id.album_iv) ImageView imageView;
+        @BindView(R.id.temp) TextView temp;
+//        @BindView(R.id.artist_tv) TextView artistTv;
+//        @BindView(R.id.album_tv) TextView albumTv;
 
         public ViewHolder(View itemView) {
             super(itemView);

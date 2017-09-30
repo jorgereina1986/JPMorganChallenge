@@ -30,7 +30,7 @@
             android:background="@color/cardview_dark_background"/>
 
         <TextView
-            android:id="@+id/track_tv"
+            android:id="@+id/temp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"

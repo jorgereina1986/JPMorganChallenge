@@ -23,15 +23,16 @@
             android:padding="16dp"
             android:hint="City and state"
             app:pacv_languageCode="en"
+            android:layout_weight="1"
             app:pacv_resultType="no_type"
             app:pacv_googleMapsApiKey="AIzaSyDkH5KAq1HS7jofvzTiftDDJDD6F-Ag5Ds"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/search_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/search_button_text"/>
+            android:src="@drawable/ic_search_black_24dp"/>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
