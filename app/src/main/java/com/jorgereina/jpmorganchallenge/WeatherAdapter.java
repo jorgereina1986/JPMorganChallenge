@@ -39,8 +39,9 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.temp.setText(entryList.get(position).getMain().getTemp()+"");
         Log.d(TAG, "onBindViewHolder: " + entryList.get(0).getClouds());
-//        holder.artistTv.setText(entryList.get(position).artistName);
-//        holder.albumTv.setText(entryList.get(position).albumName);
+        holder.minTemp.setText(entryList.get(position).getMain().getTempMin()+"");
+        holder.humidity.setText(entryList.get(position).getMain().getHumidity()+"");
+        holder.description.setText(entryList.get(position).getWeather().get(0).getDescription());
 //        Picasso.with(context).load(entryList.get(position).getImageUrl()).into(holder.imageView);
     }
 
@@ -53,8 +54,9 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
 
 //        @BindView(R.id.album_iv) ImageView imageView;
         @BindView(R.id.temp) TextView temp;
-//        @BindView(R.id.artist_tv) TextView artistTv;
-//        @BindView(R.id.album_tv) TextView albumTv;
+        @BindView(R.id.minTemp) TextView minTemp;
+        @BindView(R.id.humidity) TextView humidity;
+        @BindView(R.id.description) TextView description;
 
         public ViewHolder(View itemView) {
             super(itemView);
