@@ -7,8 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.jorgereina.jpmorganchallenge.Models.Entry;
-
 import java.util.List;
 
 import butterknife.BindView;
@@ -16,10 +14,10 @@ import butterknife.ButterKnife;
 
 public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHolder> {
 
-    private List<Entry> entryList;
+    private List<com.jorgereina.jpmorganchallenge.Models.List> entryList;
     private Context context;
 
-    public WeatherAdapter(List<Entry> entryList, Context context) {
+    public WeatherAdapter(List<com.jorgereina.jpmorganchallenge.Models.List> entryList, Context context) {
         this.entryList = entryList;
         this.context = context;
     }
@@ -34,7 +32,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.temp.setText(entryList.get(position).main.temperature);
+//        holder.temp.setText(entryList.get(position).main.temperature);
 //        holder.artistTv.setText(entryList.get(position).artistName);
 //        holder.albumTv.setText(entryList.get(position).albumName);
 //        Picasso.with(context).load(entryList.get(position).getImageUrl()).into(holder.imageView);
