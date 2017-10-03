@@ -4,6 +4,8 @@ package com.jorgereina.jpmorganchallenge.Models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class WeatherResponse {
 
     @SerializedName("cod")
@@ -17,7 +19,7 @@ public class WeatherResponse {
     private int cnt;
     @SerializedName("list")
     @Expose
-    private java.util.List<List> list = null;
+    private List<Entry> entry = null;
     @SerializedName("city")
     @Expose
     private City city;
@@ -46,12 +48,12 @@ public class WeatherResponse {
         this.cnt = cnt;
     }
 
-    public java.util.List<List> getList() {
-        return list;
+    public List<Entry> getEntry() {
+        return entry;
     }
 
-    public void setList(java.util.List<List> list) {
-        this.list = list;
+    public void setEntry(List<Entry> entry) {
+        this.entry = entry;
     }
 
     public City getCity() {

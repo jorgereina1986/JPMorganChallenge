@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,9 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.jorgereina.jpmorganchallenge.Models.Entry;
+import com.jorgereina.jpmorganchallenge.Models.WeatherResponse;
 import com.seatgeek.placesautocomplete.PlacesAutocompleteTextView;
 
 import java.io.IOException;
@@ -43,8 +47,11 @@ public class SearchFragment extends Fragment {
 
     private RecyclerView.LayoutManager layoutManager;
     private WeatherAdapter adapter;
-    private List<com.jorgereina.jpmorganchallenge.Models.List> entryList;
+    private List<Entry> entryList;
     private Handler handler;
+    private OkHttpClient okHttpClient;
+    private Request request;
+
 
     @Nullable
     @Override
@@ -61,118 +68,52 @@ public class SearchFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         entryList = new ArrayList<>();
-
-
-//        entryList = new ArrayList<>();
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl(BASE_URL)
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//
-//        WeatherApi weatherApi = retrofit.create(WeatherApi.class);
-//        weatherApi.showResults("Brooklyn", "imperial", API_KEY).enqueue(new Callback<WeatherResponse>() {
-//            @Override
-//            public void onResponse(Call<WeatherResponse> call, retrofit2.Response<WeatherResponse> response) {
-//                Log.d(TAG, "onResponse: "+response.code());
-//                layoutManager =  new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-//                resultsRv.setLayoutManager(layoutManager);
-//                resultsRv.setAdapter(adapter);
-//                adapter = new WeatherAdapter(entryList, getContext());
-//                entryList.addAll(response.body().entryList);
-//                adapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<WeatherResponse> call, Throwable t) {
-//
-//            }
-//        });
-
-
+        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        resultsRv.setLayoutManager(layoutManager);
+        adapter = new WeatherAdapter(entryList, getContext());
+        resultsRv.setAdapter(adapter);
         handler = new Handler(Looper.getMainLooper());
+        okHttpClient = new OkHttpClient();
 
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        });
-
-        OkHttpClient okHttpClient = new OkHttpClient();
-
-
-        Request request = new Request.Builder()
+        request = new Request.Builder()
                 .url("http://api.openweathermap.org/data/2.5/forecast?q=London,us&units=imperial&appid=a503e7a1907bfec5d7baa9fe94018764")
                 .build();
 
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Toast.makeText(getContext(), e + "", Toast.LENGTH_LONG).show();
-
+                Toast.makeText(getContext(), "Unable to retrieve data", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onResponse(Call call, final Response response) throws IOException {
 
-                Log.d(TAG, "onResponse: " + response.body().string());
+                String json = response.body().string();
+
+                Gson gson = new Gson();
+                final WeatherResponse weatherResponse = gson.fromJson(json, WeatherResponse.class);
+
+                Log.d(TAG, "onWResponse: " + weatherResponse.getEntry().get(0).getMain().getTemp());
+                entryList.addAll(weatherResponse.getEntry());
+
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.notifyDataSetChanged();
+                    }
+                });
 
 
             }
         });
 
 
-//        searchButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                OkHttpClient.Builder client = new OkHttpClient.Builder();
-//
-//                HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-//                loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-//                client.addInterceptor(loggingInterceptor);
-//
-//                String input = searchInput.getText().toString();
-////                Gson gson = new Gson();
-////                JsonReader reader = new JsonReader(new StringReader());
-////                reader.setLenient(true);
-//
-//                Gson gson = new GsonBuilder().setLenient().create();
-//
-//
-//                entryList = new ArrayList<>();
-//                Retrofit retrofit = new Retrofit.Builder()
-//                        .baseUrl(BASE_URL)
-//                        .client(client.build())
-//                        .addConverterFactory(LenientGsonConverterFactory.create())
-//                        .build();
-//
-//                WeatherApi weatherApi = retrofit.create(WeatherApi.class);
-////                weatherApi.showResults("brooklyn", "imperial", API_KEY).enqueue(new Callback<WeatherResponse>() {
-//                weatherApi.showResults().enqueue(new Callback<WeatherResponse>() {
-//
-//                    @Override
-//                    public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
-//
-//                        Log.d(TAG, "onResponse: " + response.isSuccessful());
-//                        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-//                        resultsRv.setLayoutManager(layoutManager);
-//                        resultsRv.setAdapter(adapter);
-//                        adapter = new WeatherAdapter(entryList, getContext());
-////                        entryList.addAll(response.body().getList());
-//
-//                        adapter.notifyDataSetChanged();
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<WeatherResponse> call, Throwable throwable) {
-//                        Toast.makeText(getContext(), throwable + "", Toast.LENGTH_LONG).show();
-//                    }
-//                });
-//
-//            }
-//        });
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        });
 
     }
 

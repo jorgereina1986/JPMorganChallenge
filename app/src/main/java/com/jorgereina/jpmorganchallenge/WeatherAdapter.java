@@ -2,22 +2,27 @@ package com.jorgereina.jpmorganchallenge;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.jorgereina.jpmorganchallenge.Models.Entry;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.content.ContentValues.TAG;
+
 public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHolder> {
 
-    private List<com.jorgereina.jpmorganchallenge.Models.List> entryList;
+    private List<Entry> entryList;
     private Context context;
 
-    public WeatherAdapter(List<com.jorgereina.jpmorganchallenge.Models.List> entryList, Context context) {
+    public WeatherAdapter(List<Entry> entryList, Context context) {
         this.entryList = entryList;
         this.context = context;
     }
@@ -32,7 +37,8 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-//        holder.temp.setText(entryList.get(position).main.temperature);
+        holder.temp.setText(entryList.get(position).getMain().getTemp()+"");
+        Log.d(TAG, "onBindViewHolder: " + entryList.get(0).getClouds());
 //        holder.artistTv.setText(entryList.get(position).artistName);
 //        holder.albumTv.setText(entryList.get(position).albumName);
 //        Picasso.with(context).load(entryList.get(position).getImageUrl()).into(holder.imageView);
