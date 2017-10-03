@@ -23,7 +23,7 @@
         android:weightSum="12">
 
         <ImageView
-            android:id="@+id/album_iv"
+            android:id="@+id/weather_iv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="8"

@@ -107,15 +107,11 @@ public class SearchFragment extends Fragment {
             }
         });
 
-
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
             }
         });
-
     }
-
-
 }

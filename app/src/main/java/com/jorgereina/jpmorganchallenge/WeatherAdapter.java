@@ -2,20 +2,19 @@ package com.jorgereina.jpmorganchallenge;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jorgereina.jpmorganchallenge.Models.Entry;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static android.content.ContentValues.TAG;
 
 public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHolder> {
 
@@ -38,11 +37,10 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.temp.setText(entryList.get(position).getMain().getTemp()+"");
-        Log.d(TAG, "onBindViewHolder: " + entryList.get(0).getClouds());
         holder.minTemp.setText(entryList.get(position).getMain().getTempMin()+"");
         holder.humidity.setText(entryList.get(position).getMain().getHumidity()+"");
         holder.description.setText(entryList.get(position).getWeather().get(0).getDescription());
-//        Picasso.with(context).load(entryList.get(position).getImageUrl()).into(holder.imageView);
+        Picasso.with(context).load(getWeatherIcon(entryList.get(position).getWeather().get(0).getIcon())).into(holder.imageView);
     }
 
     @Override
@@ -52,7 +50,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-//        @BindView(R.id.album_iv) ImageView imageView;
+        @BindView(R.id.weather_iv) ImageView imageView;
         @BindView(R.id.temp) TextView temp;
         @BindView(R.id.minTemp) TextView minTemp;
         @BindView(R.id.humidity) TextView humidity;
@@ -62,5 +60,71 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    private String getWeatherIcon(String iconName) {
+
+        String iconBaseUrl = "http://openweathermap.org/img/w/";
+        String iconUrl = "";
+
+        switch (iconName) {
+
+            case "01d":
+                iconUrl = iconBaseUrl+"01d.png";
+                break;
+            case "02d":
+                iconUrl =  iconBaseUrl+"01d.png";
+                break;
+            case "03d":
+                iconUrl = iconBaseUrl+"01d.png";
+                break;
+            case "04d":
+                iconUrl = iconBaseUrl+"01d.png";
+                break;
+            case "09d":
+                iconUrl = iconBaseUrl+"01d.png";
+                break;
+            case "10d":
+                iconUrl = iconBaseUrl+"01d.png";
+                break;
+            case "11d":
+                iconUrl = iconBaseUrl+"01d.png";
+                break;
+            case "13d":
+                iconUrl = iconBaseUrl+"01d.png";
+                break;
+            case "50d":
+                iconUrl = iconBaseUrl+"01d.png";
+                break;
+            case "01n":
+                iconUrl = iconBaseUrl+"01d.png";
+                break;
+            case "02n":
+                iconUrl = iconBaseUrl+"01d.png";
+                break;
+            case "03n":
+                iconUrl = iconBaseUrl+"01d.png";
+                break;
+            case "04n":
+                iconUrl = iconBaseUrl+"01d.png";
+                break;
+            case "09n":
+                iconUrl = iconBaseUrl+"01d.png";
+                break;
+            case "10n":
+                iconUrl = iconBaseUrl+"01d.png";
+                break;
+            case "11n":
+                iconUrl = iconBaseUrl+"01d.png";
+                break;
+            case "13n":
+                iconUrl = iconBaseUrl+"01d.png";
+                break;
+            case "50n":
+                iconUrl = iconBaseUrl+"01d.png";
+                break;
+        }
+
+        return iconUrl;
     }
 }
