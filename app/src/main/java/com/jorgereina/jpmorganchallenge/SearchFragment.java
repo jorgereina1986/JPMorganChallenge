@@ -67,6 +67,19 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        initViews();
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String getLocation = searchInput.getText().toString();
+                networkRequest(getLocation);
+            }
+        });
+    }
+
+    private void initViews() {
         entryList = new ArrayList<>();
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         resultsRv.setLayoutManager(layoutManager);
@@ -74,9 +87,11 @@ public class SearchFragment extends Fragment {
         resultsRv.setAdapter(adapter);
         handler = new Handler(Looper.getMainLooper());
         okHttpClient = new OkHttpClient();
+    }
 
+    private void networkRequest(String location) {
         request = new Request.Builder()
-                .url("http://api.openweathermap.org/data/2.5/forecast?q=London,us&units=imperial&appid=a503e7a1907bfec5d7baa9fe94018764")
+                .url("http://api.openweathermap.org/data/2.5/forecast?q="+ location +"&units=imperial&appid=a503e7a1907bfec5d7baa9fe94018764")
                 .build();
 
         okHttpClient.newCall(request).enqueue(new Callback() {
@@ -94,6 +109,7 @@ public class SearchFragment extends Fragment {
                 final WeatherResponse weatherResponse = gson.fromJson(json, WeatherResponse.class);
 
                 Log.d(TAG, "onWResponse: " + weatherResponse.getEntry().get(0).getMain().getTemp());
+                entryList.clear();
                 entryList.addAll(weatherResponse.getEntry());
 
                 handler.post(new Runnable() {
@@ -103,13 +119,6 @@ public class SearchFragment extends Fragment {
                     }
                 });
 
-
-            }
-        });
-
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
             }
         });
