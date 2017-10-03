@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,8 +29,6 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
-import static android.content.ContentValues.TAG;
 
 public class SearchFragment extends Fragment {
 
@@ -83,15 +80,14 @@ public class SearchFragment extends Fragment {
         entryList = new ArrayList<>();
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         resultsRv.setLayoutManager(layoutManager);
-        adapter = new WeatherAdapter(entryList, getContext());
-        resultsRv.setAdapter(adapter);
+
         handler = new Handler(Looper.getMainLooper());
         okHttpClient = new OkHttpClient();
     }
 
     private void networkRequest(String location) {
         request = new Request.Builder()
-                .url("http://api.openweathermap.org/data/2.5/forecast?q="+ location +"&units=imperial&appid=a503e7a1907bfec5d7baa9fe94018764")
+                .url("http://api.openweathermap.org/data/2.5/forecast?q=" + location + "&units=imperial&appid=a503e7a1907bfec5d7baa9fe94018764")
                 .build();
 
         okHttpClient.newCall(request).enqueue(new Callback() {
@@ -104,17 +100,18 @@ public class SearchFragment extends Fragment {
             public void onResponse(Call call, final Response response) throws IOException {
 
                 String json = response.body().string();
-
                 Gson gson = new Gson();
                 final WeatherResponse weatherResponse = gson.fromJson(json, WeatherResponse.class);
 
-                Log.d(TAG, "onWResponse: " + weatherResponse.getEntry().get(0).getMain().getTemp());
                 entryList.clear();
                 entryList.addAll(weatherResponse.getEntry());
+                final String city = weatherResponse.getCity().getName() +", "+ weatherResponse.getCity().getCountry();
 
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+                        adapter = new WeatherAdapter(entryList, city, getContext());
+                        resultsRv.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
                     }
                 });

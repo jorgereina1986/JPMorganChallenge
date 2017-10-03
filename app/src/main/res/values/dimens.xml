@@ -2,7 +2,8 @@
 <resources>
     <dimen name="margin10dp">10dp</dimen>
     <dimen name="card_corner_radius">5dp</dimen>
-    <dimen name="track_title_text_dimen">26sp</dimen>
-    <dimen name="album_text_dimen">16sp</dimen>
-    <dimen name="artist_text_dimen">20sp</dimen>
+    <dimen name="weather_title_text_dimen_32">32sp</dimen>
+    <dimen name="weather_title_text_dimen_26">26sp</dimen>
+    <dimen name="weather_text_dimen_16">16sp</dimen>
+    <dimen name="weather_text_dimen_20">20sp</dimen>
 </resources>
