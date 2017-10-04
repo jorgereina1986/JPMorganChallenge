@@ -2,6 +2,10 @@
 <resources>
     <dimen name="margin10dp">10dp</dimen>
     <dimen name="card_corner_radius">5dp</dimen>
+
+    <dimen name="weather_icon">64dp</dimen>
+    <dimen name="weather_title_text_dimen_128">128sp</dimen>
+    <dimen name="weather_title_text_dimen_64">64sp</dimen>
     <dimen name="weather_title_text_dimen_32">32sp</dimen>
     <dimen name="weather_title_text_dimen_26">26sp</dimen>
     <dimen name="weather_text_dimen_16">16sp</dimen>

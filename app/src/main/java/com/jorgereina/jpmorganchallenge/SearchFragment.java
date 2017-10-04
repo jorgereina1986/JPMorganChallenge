@@ -102,9 +102,15 @@ public class SearchFragment extends Fragment {
                 String json = response.body().string();
                 Gson gson = new Gson();
                 final WeatherResponse weatherResponse = gson.fromJson(json, WeatherResponse.class);
-
                 entryList.clear();
-                entryList.addAll(weatherResponse.getEntry());
+
+                //Iterating so that we have only one entry per day
+                for (int i = 0; i < weatherResponse.getEntry().size(); i++) {
+                    if (i % 8 == 0) {
+                        entryList.add(weatherResponse.getEntry().get(i));
+                    }
+                }
+
                 final String city = weatherResponse.getCity().getName() +", "+ weatherResponse.getCity().getCountry();
 
                 handler.post(new Runnable() {
