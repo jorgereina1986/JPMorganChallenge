@@ -40,10 +40,10 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.city.setText(location);
-        holder.date.setText(dateFormatter(entryList.get(position).getDt(), "EE MMM dd yyyy"));
+        holder.date.setText(dateFormatter(entryList.get(position).getDt(), "EE MMM dd, yyyy"));
         holder.temp.setText(noDecimals(entryList.get(position).getMain().getTemp()) + "°");
         holder.minTemp.setText("Min " + noDecimals(entryList.get(position).getMain().getTempMin()) + "°");
-        holder.humidity.setText("Humidity" + entryList.get(position).getMain().getHumidity() + "");
+        holder.humidity.setText("Humidity " + entryList.get(position).getMain().getHumidity());
         holder.description.setText(entryList.get(position).getWeather().get(0).getDescription());
         Picasso.with(context).load(getWeatherIcon(entryList.get(position).getWeather().get(0).getIcon())).into(holder.weatherIcon);
     }

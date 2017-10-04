@@ -32,8 +32,7 @@ import okhttp3.Response;
 
 public class SearchFragment extends Fragment {
 
-    private static final String API_KEY = "a503e7a1907bfec5d7baa9fe94018764";
-    private static final String BASE_URL = "http://api.openweather.org/";
+    private static final String API_KEY = BuildConfig.API_KEY;
 
     @BindView(R.id.search_button)
     ImageButton searchButton;
@@ -80,14 +79,16 @@ public class SearchFragment extends Fragment {
         entryList = new ArrayList<>();
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         resultsRv.setLayoutManager(layoutManager);
-
         handler = new Handler(Looper.getMainLooper());
         okHttpClient = new OkHttpClient();
     }
 
     private void networkRequest(String location) {
         request = new Request.Builder()
-                .url("http://api.openweathermap.org/data/2.5/forecast?q=" + location + "&units=imperial&appid=a503e7a1907bfec5d7baa9fe94018764")
+                .url("http://api.openweathermap.org/data/2.5/forecast?q="
+                        + location
+                        + "&units=imperial&appid="
+                        + API_KEY)
                 .build();
 
         okHttpClient.newCall(request).enqueue(new Callback() {
@@ -111,7 +112,7 @@ public class SearchFragment extends Fragment {
                     }
                 }
 
-                final String city = weatherResponse.getCity().getName() +", "+ weatherResponse.getCity().getCountry();
+                final String city = weatherResponse.getCity().getName() + ", " + weatherResponse.getCity().getCountry();
 
                 handler.post(new Runnable() {
                     @Override

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,19 +19,20 @@
             android:layout_width="256dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:padding="16dp"
-            android:hint="City and state"
-            app:pacv_languageCode="en"
             android:layout_weight="1"
-            app:pacv_resultType="no_type"
-            app:pacv_googleMapsApiKey="AIzaSyDkH5KAq1HS7jofvzTiftDDJDD6F-Ag5Ds"/>
+            android:hint="City and state"
+            android:maxLines="1"
+            android:padding="16dp"
+            app:pacv_googleMapsApiKey="@string/api_key"
+            app:pacv_languageCode="en"
+            app:pacv_resultType="no_type" />
 
         <ImageButton
             android:id="@+id/search_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/ic_search_black_24dp"/>
+            android:src="@drawable/ic_search_black_24dp" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
