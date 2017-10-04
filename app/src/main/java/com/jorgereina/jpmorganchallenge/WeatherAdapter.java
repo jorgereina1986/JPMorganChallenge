@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jorgereina.jpmorganchallenge.Models.Entry;
+import com.jorgereina.jpmorganchallenge.models.Entry;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;

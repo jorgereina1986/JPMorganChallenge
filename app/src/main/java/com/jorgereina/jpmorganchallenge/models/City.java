@@ -1,4 +1,4 @@
-package com.jorgereina.jpmorganchallenge.Models;
+package com.jorgereina.jpmorganchallenge.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -13,7 +13,7 @@ public class City {
     private String name;
     @SerializedName("coord")
     @Expose
-    private com.jorgereina.jpmorganchallenge.Models.Coord coord;
+    private com.jorgereina.jpmorganchallenge.models.Coord coord;
     @SerializedName("country")
     @Expose
     private String country;
@@ -34,11 +34,11 @@ public class City {
         this.name = name;
     }
 
-    public com.jorgereina.jpmorganchallenge.Models.Coord getCoord() {
+    public com.jorgereina.jpmorganchallenge.models.Coord getCoord() {
         return coord;
     }
 
-    public void setCoord(com.jorgereina.jpmorganchallenge.Models.Coord coord) {
+    public void setCoord(com.jorgereina.jpmorganchallenge.models.Coord coord) {
         this.coord = coord;
     }
 

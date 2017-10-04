@@ -14,8 +14,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.jorgereina.jpmorganchallenge.Models.Entry;
-import com.jorgereina.jpmorganchallenge.Models.WeatherResponse;
+import com.jorgereina.jpmorganchallenge.models.Entry;
+import com.jorgereina.jpmorganchallenge.models.WeatherResponse;
 import com.seatgeek.placesautocomplete.PlacesAutocompleteTextView;
 
 import java.io.IOException;
